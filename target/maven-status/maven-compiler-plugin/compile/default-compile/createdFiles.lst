@@ -1,4 +1,5 @@
 com/mycompany/frogsandtoads/App.class
-com/mycompany/frogsandtoads/SecondaryController.class
 module-info.class
+com/mycompany/frogsandtoads/MainScreenController.class
+com/mycompany/frogsandtoads/SecondaryController.class
 com/mycompany/frogsandtoads/PrimaryController.class
