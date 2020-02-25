@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1090.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.frogsandtoads.MainScreenController">
+   <children>
+      <AnchorPane layoutX="43.0" layoutY="175.0">
+         <children>
+            <ImageView fx:id="pond1" fitHeight="60.0" fitWidth="150.0" layoutY="94.0" onMouseClicked="#selectPond1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond2" fitHeight="60.0" fitWidth="150.0" layoutX="147.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond3" fitHeight="60.0" fitWidth="150.0" layoutX="295.0" layoutY="94.0" onMouseClicked="#selectPond3" onMouseEntered="#highlightPond3" onMouseExited="#removePondHighlight3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond4" fitHeight="60.0" fitWidth="150.0" layoutX="441.0" layoutY="94.0" onMouseClicked="#selectPond4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond5" fitHeight="60.0" fitWidth="150.0" layoutX="607.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond6" fitHeight="60.0" fitWidth="138.0" layoutX="766.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond7" fitHeight="60.0" fitWidth="150.0" layoutX="914.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian2" fitHeight="60.0" fitWidth="70.0" layoutX="186.0" layoutY="81.0" onMouseClicked="#selectAmphibian2" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian5" fitHeight="60.0" fitWidth="70.0" layoutX="651.0" layoutY="64.0" onMouseClicked="#selectAmphibian5" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian6" fitHeight="69.0" fitWidth="65.0" layoutX="810.0" layoutY="64.0" onMouseClicked="#selectAmphibian6" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian7" fitHeight="60.0" fitWidth="70.0" layoutX="951.0" layoutY="64.0" onMouseClicked="#selectAmphibian7" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian1" fitHeight="60.0" fitWidth="70.0" layoutX="50.0" layoutY="81.0" onMouseClicked="#selectAmphibian1" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian3" fitHeight="60.0" fitWidth="70.0" layoutX="343.0" layoutY="81.0" onMouseClicked="#selectAmphibian3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="484.0" layoutY="64.0" onMouseClicked="#selectAmphibian4" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="345.0" layoutY="454.0" text="Moves:" textFill="#392aad">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMovesCount" layoutX="375.0" layoutY="508.0" text="0" textFill="#372aad">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblWellDone" layoutX="652.0" layoutY="481.0" text="Well Done!" textFill="#e04900" visible="false">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#31d06bb2" height="69.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" />
+      <Label layoutX="351.0" layoutY="93.0" text="When ready click a frogs or toads to start the puzzle !" textFill="#005423">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="429.0" layoutY="17.0" text="Frogs and Toads  Simulation" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <HBox layoutX="8.0" layoutY="348.0" prefHeight="100.0" prefWidth="367.0" />
+   </children>
+</AnchorPane>
