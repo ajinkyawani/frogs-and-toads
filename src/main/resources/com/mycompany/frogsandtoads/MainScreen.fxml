@@ -11,76 +11,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1090.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.frogsandtoads.MainScreenController">
    <children>
-      <AnchorPane layoutX="43.0" layoutY="175.0">
-         <children>
-            <ImageView fx:id="pond1" fitHeight="60.0" fitWidth="150.0" layoutY="94.0" onMouseClicked="#selectPond1" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond2" fitHeight="60.0" fitWidth="150.0" layoutX="147.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond3" fitHeight="60.0" fitWidth="150.0" layoutX="295.0" layoutY="94.0" onMouseClicked="#selectPond3" onMouseEntered="#highlightPond3" onMouseExited="#removePondHighlight3" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond4" fitHeight="60.0" fitWidth="150.0" layoutX="441.0" layoutY="94.0" onMouseClicked="#selectPond4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond5" fitHeight="60.0" fitWidth="150.0" layoutX="607.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond6" fitHeight="60.0" fitWidth="138.0" layoutX="766.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pond7" fitHeight="60.0" fitWidth="150.0" layoutX="914.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pond.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian2" fitHeight="60.0" fitWidth="70.0" layoutX="186.0" layoutY="81.0" onMouseClicked="#selectAmphibian2" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@toad.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian5" fitHeight="60.0" fitWidth="70.0" layoutX="651.0" layoutY="64.0" onMouseClicked="#selectAmphibian5" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@frog.PNG" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian6" fitHeight="69.0" fitWidth="65.0" layoutX="810.0" layoutY="64.0" onMouseClicked="#selectAmphibian6" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@frog.PNG" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian7" fitHeight="60.0" fitWidth="70.0" layoutX="951.0" layoutY="64.0" onMouseClicked="#selectAmphibian7" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@frog.PNG" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian1" fitHeight="60.0" fitWidth="70.0" layoutX="50.0" layoutY="81.0" onMouseClicked="#selectAmphibian1" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@toad.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian3" fitHeight="60.0" fitWidth="70.0" layoutX="343.0" layoutY="81.0" onMouseClicked="#selectAmphibian3" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@toad.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="484.0" layoutY="64.0" onMouseClicked="#selectAmphibian4" onMouseEntered="#highlightPond2" onMouseExited="#removePondHighlight2" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
       <Label layoutX="345.0" layoutY="454.0" text="Moves:" textFill="#392aad">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -102,7 +32,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="429.0" layoutY="17.0" text="Frogs and Toads  Simulation" textFill="WHITE">
+      <Label layoutX="429.0" layoutY="17.0" text="Frogs and Toads " textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -110,6 +40,79 @@
             <DropShadow />
          </effect>
       </Label>
-      <HBox layoutX="8.0" layoutY="348.0" prefHeight="100.0" prefWidth="367.0" />
+      <HBox layoutX="49.0" layoutY="325.0" prefHeight="96.0" prefWidth="979.0">
+         <children>
+            <ImageView fx:id="pond1" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond2" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond3" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond4" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond5" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond6" fitHeight="60.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pond7" fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pond.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="11.0" layoutY="213.0" prefHeight="172.0" prefWidth="1055.0">
+         <children>
+            <ImageView fx:id="amphibian5" fitHeight="60.0" fitWidth="70.0" layoutX="634.0" layoutY="98.0" onMouseClicked="#selectAmphibian5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian6" fitHeight="69.0" fitWidth="65.0" layoutX="777.0" layoutY="98.0" onMouseClicked="#selectAmphibian6" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian7" fitHeight="60.0" fitWidth="70.0" layoutX="912.0" layoutY="98.0" onMouseClicked="#selectAmphibian7" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@frog.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian3" fitHeight="60.0" fitWidth="70.0" layoutX="354.0" layoutY="100.0" onMouseClicked="#selectAmphibian3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian1" fitHeight="60.0" fitWidth="70.0" layoutX="87.0" layoutY="98.0" onMouseClicked="#selectAmphibian1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian2" fitHeight="60.0" fitWidth="70.0" layoutX="212.0" layoutY="100.0" onMouseClicked="#selectAmphibian2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@toad.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="496.0" layoutY="99.0" onMouseClicked="#selectAmphibian3" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

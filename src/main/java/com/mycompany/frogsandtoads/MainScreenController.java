@@ -1,9 +1,11 @@
-// package declaration
+// package
 package com.mycompany.frogsandtoads;
 
-// necessary imports
+// imports
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +14,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
-import javafx.scene.shape.Circle;
 import javafx.animation.PathTransition;
+import javafx.scene.shape.Arc;
 import javafx.util.Duration;
 
 
@@ -54,210 +55,140 @@ public class MainScreenController implements Initializable {
     private ImageView amphibian3;
     @FXML
     private ImageView amphibian4;
-
     private ImageView selectedAmphibian;// variable to keep track of selected toad or frog
     private ImageView selectedPond;// variable to keep track of target pond where to move amphibian to
-    private HashMap<ImageView, ImageView> pondsList;// list of ponds with their corresponding amphibians
-    private HashMap<ImageView, Boolean> pondAmphibians;
-    private int moveCount;
+    private HashMap<ImageView, ImageView> pondsAmphibiansMap;// list of ponds with their corresponding amphibians
+    private HashMap<ImageView, ImageView> amphibiansPondsMap;
+    private ImageView currentEmptyPond; // Variable to maintain current empty pod.
+    private ImageView previousEmptyPond; // Variable to maintain previous empty pod.
+    private int moveCount; // Variable to maintain moves count.
+    private ArrayList<ImageView> validSpots; // Arraylist to maintain valid amphibians after each move.
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        pondsList = new HashMap<>();// create pondsList Hashmap   
-        pondsList.put(pond1, amphibian1);// initialize pondsList Hashmap
-        pondsList.put(pond2, amphibian2);
-        pondsList.put(pond3, amphibian3);
-        pondsList.put(pond4, amphibian4);
-        pondsList.put(pond5, amphibian5);
-        pondsList.put(pond6, amphibian6);
-        pondsList.put(pond7, amphibian7);
-
-    }
-
-    
+        pondsAmphibiansMap = new HashMap<>();// create pondsAmphibiansMap Hashmap   
+        amphibiansPondsMap = new HashMap<>();
         
-// -------------- 7 Selections of pods on mouse event
-    @FXML
-    private void selectPond1(MouseEvent event) {
-        selectPond(pond1);
+        amphibiansPondsMap.put(amphibian1, pond1);// initialize amphibiansPondsMap Hashmap
+        amphibiansPondsMap.put(amphibian2, pond2);
+        amphibiansPondsMap.put(amphibian3, pond3);
+        amphibiansPondsMap.put(amphibian4, pond4);
+        amphibiansPondsMap.put(amphibian5, pond5);
+        amphibiansPondsMap.put(amphibian6, pond6);
+        amphibiansPondsMap.put(amphibian7, pond7);
+
+        pondsAmphibiansMap.put(pond1, amphibian1); // initialize pondsAmphibiansMap Hashmap
+        pondsAmphibiansMap.put(pond2, amphibian2);
+        pondsAmphibiansMap.put(pond3, amphibian3);
+        pondsAmphibiansMap.put(pond4, amphibian4);
+        pondsAmphibiansMap.put(pond5, amphibian5);
+        pondsAmphibiansMap.put(pond6, amphibian6);
+        pondsAmphibiansMap.put(pond7, amphibian7);
+        
+        this.validSpots = new ArrayList<ImageView>();
+        this.currentEmptyPond = this.pond4;
+        this.previousEmptyPond = this.pond4;
     }
 
-    private void selectPond2(MouseEvent event) {
-        selectPond(pond2);
-    }
-
-    @FXML
-    private void selectPond3(MouseEvent event) {
-        selectPond(pond3);
-    }
-
-    @FXML
-    private void selectPond4(MouseEvent event) {
-        selectPond(pond4);
-    }
-
-    private void selectPond5(MouseEvent event) {
-        selectPond(pond5);
-    }
-
-    private void selectPond6(MouseEvent event) {
-        selectPond(pond6);
-    }
-
-    private void selectPond7(MouseEvent event) {
-        selectPond(pond7);
-    }
-  
     
     
-    //------------------  7 Selection of Amphobian on mouse event
+    //------------------ Mouse events to select amphibians.
     @FXML
     private void selectAmphibian1(MouseEvent event) {
-        selectAmphibian(amphibian1);
+        selectAmphibian(amphibian1, event);
     }
     @FXML
     private void selectAmphibian2(MouseEvent event) {
-        Circle pathCircle = new Circle(100);
-      
-        PathTransition transition = new PathTransition();
-        transition.setNode(amphibian2);
-        transition.setDuration(Duration.seconds(3));
-        transition.setPath(pathCircle);
-        transition.setCycleCount(PathTransition.INDEFINITE);
-        transition.play();
-        //selectAmphibian(amphibian2);
+        selectAmphibian(amphibian2, event);
     }
 
     @FXML
     private void selectAmphibian5(MouseEvent event) {
-        selectAmphibian(amphibian5);
+        selectAmphibian(amphibian5, event);
     }
 
     @FXML
     private void selectAmphibian6(MouseEvent event) {
-        selectAmphibian(amphibian6);
+        selectAmphibian(amphibian6, event);
     }
 
     @FXML
     private void selectAmphibian7(MouseEvent event) {
-        selectAmphibian(amphibian7);
+        selectAmphibian(amphibian7, event);
     }
 
     @FXML
     private void selectAmphibian3(MouseEvent event) {
-        selectAmphibian(amphibian3);
-    }
-
-    @FXML
-    private void selectAmphibian4(MouseEvent event) {
-        selectAmphibian(amphibian4);
+        selectAmphibian(amphibian3, event);
     }
 
 
-    //------------ 7 selection of highlited pons on mouse events
-    private void removePondHighlight1(MouseEvent event) {
-        if (pond1 != selectedPond) {
-            pond1.setEffect(null);
+      
+    // Highlight or dehighlight amphibians/pods and update previous and current empty pods 
+    private void selectAmphibian(ImageView amphibian, MouseEvent event) {
+        if (this.selectedAmphibian != null) {
+            this.selectedAmphibian.setEffect(null);
         }
-    }
-
-    private void highlightPond1(MouseEvent event) {
-        if (pond1 != selectedPond) {
-            pond1.setEffect(new DropShadow());
-        }
-    }
-
-    @FXML
-    private void removePondHighlight2(MouseEvent event) {
-        if (pond2 != selectedPond) {
-            pond2.setEffect(null);
-        }
-    }
-
-    @FXML
-    private void highlightPond2(MouseEvent event) {
-        if (pond2 != selectedPond) {
-            pond2.setEffect(new DropShadow());
-        }
-    }
-
-    @FXML
-    private void removePondHighlight3(MouseEvent event) {
-        if (pond3 != selectedPond) {
-            pond3.setEffect(null);
-        }
-    }
-
-    @FXML
-    private void highlightPond3(MouseEvent event) {
-        if (pond3 != selectedPond) {
-            pond3.setEffect(new DropShadow());
-        }
-    }
-
-    private void removePondHighlight4(MouseEvent event) {
-        if (pond4 != selectedPond) {
-            pond4.setEffect(null);
-        }
-    }
-
-    private void highlightPond4(MouseEvent event) {
-        if (pond4 != selectedPond) {
-            pond4.setEffect(new DropShadow());
-        }
-    }
-
-    private void removePondHighlight5(MouseEvent event) {
-        if (pond5 != selectedPond) {
-            pond5.setEffect(null);
-        }
-    }
-
-    private void highlightPond5(MouseEvent event) {
-        if (pond5 != selectedPond) {
-            pond5.setEffect(new DropShadow());
-        }
-    }
-
-    private void removePondHighlight6(MouseEvent event) {
-        if (pond6 != selectedPond) {
-            pond6.setEffect(null);
-        }
-    }
-
-    private void highlightPond6(MouseEvent event) {
-        if (pond6 != selectedPond) {
-            pond6.setEffect(new DropShadow());
-        }
-    }
-
-    private void removePondHighlight7(MouseEvent event) {
-        if (pond7 != selectedPond) {
-            pond7.setEffect(null);
-        }
-
-    }
-
-    private void highlightPond7(MouseEvent event) {
-        if (pond7 != selectedPond) {
-            pond7.setEffect(new DropShadow());
-        }
-
+        this.selectedAmphibian = amphibian;
+        this.selectedAmphibian.setEffect(new DropShadow(30, Color.RED));
+        this.jumpAmphibion(amphibian, event);
+        if(this.currentEmptyPond != null)
+            this.currentEmptyPond.setEffect(null);
+        this.previousEmptyPond = this.currentEmptyPond;
+        this.currentEmptyPond = this.amphibiansPondsMap.get(amphibian);
+        this.currentEmptyPond.setEffect(new DropShadow(30, Color.RED));
+       // System.out.println(this.currentEmptyPond + " " + event.getSceneX() + " " + event.getSceneY());
+       // System.out.println(this.previousEmptyPond + " " + event.getSceneX() + " " + event.getSceneY());
+        this.updatePondsAmphibiansMapping();
+        this.updateAmphibiansPondsMapping();
     }
     
-    
-    private void selectAmphibian(ImageView amphibian) {
-        if (selectedAmphibian != null) {
-            selectedAmphibian.setEffect(null);
+    // Update ponds to amphibians mapping after each move.
+    private void updatePondsAmphibiansMapping() {
+        ImageView previousAmphibian =  this.pondsAmphibiansMap.get(previousEmptyPond); 
+        this.pondsAmphibiansMap.replace(this.previousEmptyPond, this.selectedAmphibian);
+        this.pondsAmphibiansMap.replace(this.currentEmptyPond, previousAmphibian);
+        
+        for (Map.Entry<ImageView, ImageView> entry : pondsAmphibiansMap.entrySet()) {
+            ImageView key = entry.getKey();
+            ImageView value = entry.getValue();
+            System.out.println(key + " " + value);
         }
-        selectedAmphibian = amphibian;
-        selectedAmphibian.setEffect(new DropShadow(30, Color.RED));
+        
+    }
+    
+    // Update amphibians to ponds mapping after each move.
+    private void updateAmphibiansPondsMapping() {
+      ImageView previousAmphibian =  this.pondsAmphibiansMap.get(currentEmptyPond);
+        this.amphibiansPondsMap.replace(this.selectedAmphibian, this.previousEmptyPond);
+        this.amphibiansPondsMap.replace(previousAmphibian, this.currentEmptyPond);
+        
+        for (Map.Entry<ImageView, ImageView> entry : amphibiansPondsMap.entrySet()) {
+            ImageView key = entry.getKey();
+            ImageView value = entry.getValue();
+            System.out.println(key + " " + value);
+        }
+    }
+    
+    // Make amphibians jump
+    private void jumpAmphibion(ImageView amphibion, MouseEvent event){
+      Arc arc = new Arc();
+      arc.setCenterX(event.getX() - 50.0f); 
+      arc.setCenterY(event.getY()); 
+      arc.setRadiusX(90.0f); 
+      arc.setRadiusY(150.0f); 
+      arc.setStartAngle(0.0f); 
+      arc.setLength(180.0f); 
+      PathTransition transition = new PathTransition();
+      transition.setNode(amphibion);
+      transition.setDuration(Duration.seconds(2));
+      transition.setPath(arc);
+      transition.setCycleCount(1);
+      transition.play();
     }
 
-    private void selectPond(ImageView pond1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
  
 }
