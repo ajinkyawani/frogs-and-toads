@@ -26,7 +26,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#31d06bb2" height="69.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5c955b2" height="69.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" />
       <Label layoutX="351.0" layoutY="93.0" text="When ready click a frogs or toads to start the puzzle !" textFill="#005423">
          <font>
             <Font size="22.0" />
@@ -111,8 +111,8 @@
                   <Image url="@toad.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="496.0" layoutY="99.0" onMouseClicked="#selectAmphibian3" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
+      <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="410.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

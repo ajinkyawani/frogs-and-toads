@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.animation.PathTransition;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
 
@@ -62,7 +63,8 @@ public class MainScreenController implements Initializable {
     private ImageView currentEmptyPond; // Variable to maintain current empty pod.
     private ImageView previousEmptyPond; // Variable to maintain previous empty pod.
     private int moveCount; // Variable to maintain moves count.
-    private ArrayList<ImageView> validSpots; // Arraylist to maintain valid amphibians after each move.
+    private ArrayList<ImageView> validAmphibiansList; // Arraylist to maintain valid amphibians after each move.
+    private ArrayList<ImageView> allPonds;
 
     
     @Override
@@ -70,6 +72,7 @@ public class MainScreenController implements Initializable {
 
         pondsAmphibiansMap = new HashMap<>();// create pondsAmphibiansMap Hashmap   
         amphibiansPondsMap = new HashMap<>();
+        this.allPonds = new ArrayList<>();
         
         amphibiansPondsMap.put(amphibian1, pond1);// initialize amphibiansPondsMap Hashmap
         amphibiansPondsMap.put(amphibian2, pond2);
@@ -87,9 +90,19 @@ public class MainScreenController implements Initializable {
         pondsAmphibiansMap.put(pond6, amphibian6);
         pondsAmphibiansMap.put(pond7, amphibian7);
         
-        this.validSpots = new ArrayList<ImageView>();
+        this.allPonds.add(pond1);
+        this.allPonds.add(pond2);
+        this.allPonds.add(pond3);
+        this.allPonds.add(pond4);
+        this.allPonds.add(pond5);
+        this.allPonds.add(pond6);
+        this.allPonds.add(pond7);
+        
+        this.validAmphibiansList = new ArrayList<ImageView>();
         this.currentEmptyPond = this.pond4;
         this.previousEmptyPond = this.pond4;
+        
+        this.updateValidAmphibians(this.currentEmptyPond);
     }
 
     
@@ -128,21 +141,25 @@ public class MainScreenController implements Initializable {
       
     // Highlight or dehighlight amphibians/pods and update previous and current empty pods 
     private void selectAmphibian(ImageView amphibian, MouseEvent event) {
-        if (this.selectedAmphibian != null) {
-            this.selectedAmphibian.setEffect(null);
+        this.updateValidAmphibians(this.currentEmptyPond);
+        if (this.validAmphibiansList.contains(amphibian)) {
+            if (this.selectedAmphibian != null) {
+                this.selectedAmphibian.setEffect(null);
+            }
+            this.selectedAmphibian = amphibian;
+            this.selectedAmphibian.setEffect(new DropShadow(30, Color.RED));
+            if(this.currentEmptyPond != null)
+                this.currentEmptyPond.setEffect(null);
+            this.jumpAmphibion(amphibian, event);
+            this.previousEmptyPond = this.currentEmptyPond;
+            this.currentEmptyPond = this.amphibiansPondsMap.get(amphibian);
+            this.currentEmptyPond.setEffect(new DropShadow(30, Color.RED));
+            this.updatePondsAmphibiansMapping();
+            this.updateAmphibiansPondsMapping();
         }
-        this.selectedAmphibian = amphibian;
-        this.selectedAmphibian.setEffect(new DropShadow(30, Color.RED));
-        this.jumpAmphibion(amphibian, event);
-        if(this.currentEmptyPond != null)
-            this.currentEmptyPond.setEffect(null);
-        this.previousEmptyPond = this.currentEmptyPond;
-        this.currentEmptyPond = this.amphibiansPondsMap.get(amphibian);
-        this.currentEmptyPond.setEffect(new DropShadow(30, Color.RED));
-       // System.out.println(this.currentEmptyPond + " " + event.getSceneX() + " " + event.getSceneY());
-       // System.out.println(this.previousEmptyPond + " " + event.getSceneX() + " " + event.getSceneY());
-        this.updatePondsAmphibiansMapping();
-        this.updateAmphibiansPondsMapping();
+        else
+            System.out.println("Sorry, you cannot make a move with this amphibian");
+        
     }
     
     // Update ponds to amphibians mapping after each move.
@@ -181,12 +198,47 @@ public class MainScreenController implements Initializable {
       arc.setRadiusY(150.0f); 
       arc.setStartAngle(0.0f); 
       arc.setLength(180.0f); 
+      
+      //Line line = new Line();
+//      line.setStartX(event.getX());
+//      line.setStartY(event.getY());
+//     // line.setEndX();
+//      //line.setEndY(this.amphibian4.getY());
+//        System.out.println("X value:" + this.currentEmptyPond.getScene().getX());
+//        System.out.println("Y value:" + this.currentEmptyPond.getY());
+//        System.out.println(this.currentEmptyPond.toString());
       PathTransition transition = new PathTransition();
       transition.setNode(amphibion);
-      transition.setDuration(Duration.seconds(2));
+      transition.setDuration(Duration.seconds(1));
       transition.setPath(arc);
       transition.setCycleCount(1);
       transition.play();
+    }
+    
+    private void updateValidAmphibians(ImageView currentEmptyPond) {
+        ArrayList<ImageView> pondKeys = new ArrayList<>();
+        int indexKey;
+        this.validAmphibiansList.clear();
+        for (int i = 0; i < this.allPonds.size(); i++) {
+            if (currentEmptyPond.equals(this.allPonds.get(i))){
+                indexKey = i;
+                pondKeys.add(this.allPonds.get(i));
+                if (i-1 >= 0)
+                    pondKeys.add(this.allPonds.get(i-1));
+                if (i-2 >= 0)
+                    pondKeys.add(this.allPonds.get(i-2));
+                if (i+1 <= this.allPonds.size() - 1)
+                    pondKeys.add(this.allPonds.get(i+1));
+                if (i+2 <= this.allPonds.size() - 1)
+                    pondKeys.add(this.allPonds.get(i+2));
+            }
+        }
+        
+        for(ImageView item: pondKeys){
+            this.validAmphibiansList.add(this.pondsAmphibiansMap.get(item));
+        }
+           
+        System.out.println("Eligible Ponds:" +this.validAmphibiansList.toString());
     }
 
 
