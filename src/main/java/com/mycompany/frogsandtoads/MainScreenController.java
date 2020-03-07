@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -65,6 +66,8 @@ public class MainScreenController implements Initializable {
     private ArrayList<ImageView> validAmphibiansList; // Arraylist to maintain valid amphibians after each move.
     private ArrayList<ImageView> allPonds;
     private HashMap<ImageView, Boolean> pondsStatus;
+    private HashMap<ImageView, Integer> pondRanks;
+    
     @FXML
     private Button replayButton;
     
@@ -75,6 +78,7 @@ public class MainScreenController implements Initializable {
         pondsAmphibiansMap = new HashMap<>();// create pondsAmphibiansMap Hashmap   
         amphibiansPondsMap = new HashMap<>();
         pondsStatus = new HashMap<>();
+        pondRanks = new HashMap<>();
         this.allPonds = new ArrayList<>();
         
         amphibiansPondsMap.put(amphibian1, pond1);// initialize amphibiansPondsMap Hashmap
@@ -108,6 +112,14 @@ public class MainScreenController implements Initializable {
         this.pondsStatus.put(pond5, false);
         this.pondsStatus.put(pond6, false);
         this.pondsStatus.put(pond7, false);
+        
+        this.pondRanks.put(pond1, 1);
+        this.pondRanks.put(pond2, 2);
+        this.pondRanks.put(pond3, 3);
+        this.pondRanks.put(pond4, 4);
+        this.pondRanks.put(pond5, 5);
+        this.pondRanks.put(pond6, 6);
+        this.pondRanks.put(pond7, 7);
         
         this.validAmphibiansList = new ArrayList<ImageView>();
         this.currentEmptyPond = this.pond4;
@@ -170,8 +182,17 @@ public class MainScreenController implements Initializable {
             this.currentEmptyPond.setEffect(new DropShadow(30, Color.RED));
 
         }
-        else
+        else if (this.validAmphibiansList.isEmpty() && !gameWon()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("It's a deadlock!");
+            alert.setContentText("You cannot make any move further! Press ok and replay the game");
+            alert.show();
+            this.replayButton.setVisible(true);
+        }
+        else{
+            System.out.println(this.validAmphibiansList.isEmpty());
             System.out.println("Sorry, you cannot make a move with this amphibian");
+        }
         
     }
     
@@ -212,14 +233,13 @@ public class MainScreenController implements Initializable {
         for (int i = 0; i < this.allPonds.size(); i++) {
             if (currentEmptyPond.equals(this.allPonds.get(i))){
                 indexKey = i;
-                pondKeys.add(this.allPonds.get(i));
-                if (i-1 >= 0)
+                if (i-1 >= 0 && this.isLegal(i-1))
                     pondKeys.add(this.allPonds.get(i-1));
-                if (i-2 >= 0)
+                if (i-2 >= 0 && this.isLegal(i-2))
                     pondKeys.add(this.allPonds.get(i-2));
-                if (i+1 <= this.allPonds.size() - 1)
+                if (i+1 <= this.allPonds.size() - 1 && this.isLegal(i + 1))
                     pondKeys.add(this.allPonds.get(i+1));
-                if (i+2 <= this.allPonds.size() - 1)
+                if (i+2 <= this.allPonds.size() - 1 && this.isLegal(i + 2))
                     pondKeys.add(this.allPonds.get(i+2));
             }
         }
@@ -231,6 +251,18 @@ public class MainScreenController implements Initializable {
         System.out.println("Eligible Ponds:" +this.validAmphibiansList.toString());
     }
 
+    private boolean isLegal(int index) {
+        int emptyPondRank = this.pondRanks.get(this.currentEmptyPond);
+        boolean nominatedPondStatus = this.pondsStatus.get(this.allPonds.get(index));
+        int nominatedPondRank = this.pondRanks.get(this.allPonds.get(index));
+        if ((nominatedPondStatus == true && nominatedPondRank < emptyPondRank)
+                            || (nominatedPondStatus == false) && nominatedPondRank > emptyPondRank) {
+            return true;
+        }
+            
+    return false;
+    }
+    
     @FXML
     private void restartGame(ActionEvent event) throws IOException {
         App.setRoot("MainScreen");
