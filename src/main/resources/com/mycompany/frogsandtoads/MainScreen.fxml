@@ -111,8 +111,8 @@
                   <Image url="@toad.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="493.0" layoutY="86.0" onMouseClicked="#selectAmphibian4" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="410.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
