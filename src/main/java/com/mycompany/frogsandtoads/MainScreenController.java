@@ -5,7 +5,6 @@ package com.mycompany.frogsandtoads;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,11 +13,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.animation.PathTransition;
-import javafx.scene.control.Alert;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.Line;
-import javafx.util.Duration;
+
 
 
 // Main Screen Controller
@@ -67,6 +62,7 @@ public class MainScreenController implements Initializable {
     private ArrayList<ImageView> validAmphibiansList; // Arraylist to maintain valid amphibians after each move.
     private ArrayList<ImageView> allPonds;
     private HashMap<ImageView, Boolean> pondsStatus;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -157,9 +153,6 @@ public class MainScreenController implements Initializable {
     private void selectAmphibian(ImageView amphibian, MouseEvent event) {
         this.updateValidAmphibians(this.currentEmptyPond);
         if (this.validAmphibiansList.contains(amphibian) && !gameWon()) {
-//            if (this.selectedAmphibian != null) {
-//                this.selectedAmphibian.setEffect(null);
-//            }
             this.selectedAmphibian = amphibian;
            // this.selectedAmphibian.setEffect(new DropShadow(30, Color.BLUE));
             if(this.currentEmptyPond != null)
@@ -169,10 +162,6 @@ public class MainScreenController implements Initializable {
             this.previousEmptyPond = this.currentEmptyPond;
             this.currentEmptyPond = this.amphibiansPondsMap.get(amphibian);
             this.currentEmptyPond.setEffect(new DropShadow(30, Color.RED));
-           // System.out.println("Current Empty Pond" +this.currentEmptyPond.toString());
-           // this.updatePondsAmphibiansMapping();
-            //this.updateAmphibiansPondsMapping();
-           // System.out.println("Current Empty Pond Amphibian" + this.pondsAmphibiansMap.get(this.currentEmptyPond));
 
         }
         else
@@ -180,64 +169,12 @@ public class MainScreenController implements Initializable {
         
     }
     
-    // Update ponds to amphibians mapping after each move.
-    private void updatePondsAmphibiansMapping() {
-        ImageView previousAmphibian =  this.pondsAmphibiansMap.get(previousEmptyPond); 
-        this.pondsAmphibiansMap.replace(this.previousEmptyPond, this.selectedAmphibian);
-        this.pondsAmphibiansMap.replace(this.currentEmptyPond, previousAmphibian);
-        
-//        for (Map.Entry<ImageView, ImageView> entry : pondsAmphibiansMap.entrySet()) {
-//            ImageView key = entry.getKey();
-//            ImageView value = entry.getValue();
-//            System.out.println(key + " " + value);
-//        }
-        
-    }
-    
-    // Update amphibians to ponds mapping after each move.
-    private void updateAmphibiansPondsMapping() {
-      ImageView previousAmphibian =  this.pondsAmphibiansMap.get(currentEmptyPond);
-        this.amphibiansPondsMap.replace(this.selectedAmphibian, this.previousEmptyPond);
-        this.amphibiansPondsMap.replace(previousAmphibian, this.currentEmptyPond);
-        
-//        for (Map.Entry<ImageView, ImageView> entry : amphibiansPondsMap.entrySet()) {
-//            ImageView key = entry.getKey();
-//            ImageView value = entry.getValue();
-//            System.out.println(key + " " + value);
-//        }
-    }
     
     // Make amphibians jump
     private void jumpAmphibion(ImageView amphibion, MouseEvent event){
-//      Arc arc = new Arc();
-//      arc.setCenterX(event.getX() - 50.0f); 
-//      arc.setCenterY(event.getY()); 
-//      arc.setRadiusX(90.0f); 
-//      arc.setRadiusY(150.0f); 
-//      arc.setStartAngle(0.0f); 
-//      arc.setLength(180.0f); 
-      
-//      Line line = new Line();
-//      line.setStartX(event.getX());
-//      line.setStartY(event.getY());
-//      line.setEndX(event.getX() - 200);
-//      line.setEndY(event.getY());
-//        System.out.println("X value:" + this.currentEmptyPond.getScene().getX());
-//        System.out.println("Y value:" + this.currentEmptyPond.getY());
-//        System.out.println(this.currentEmptyPond.toString());
-//      PathTransition transition = new PathTransition();
-//      transition.setNode(amphibion);
-//      transition.setDuration(Duration.seconds(1));
-//      transition.setPath(line);
-//      transition.setCycleCount(1);
-//      transition.play();
-
         this.pondsAmphibiansMap.get(this.currentEmptyPond).setImage(
                                                                     this.selectedAmphibian.getImage());
-//        System.out.println(this.previousEmptyPond);
-//        System.out.println(this.pondsAmphibiansMap.get(this.previousEmptyPond));
         this.selectedAmphibian.setImage(null);
-        //System.out.println(this.pondsStatus.get(this.amphibiansPondsMap.get(amphibion)));
         this.pondsStatus.replace(this.currentEmptyPond, this.pondsStatus.get(this.amphibiansPondsMap.get(amphibion)));
         this.pondsStatus.replace(this.amphibiansPondsMap.get(amphibion), null);
         if(gameWon()){
@@ -286,9 +223,5 @@ public class MainScreenController implements Initializable {
            
         System.out.println("Eligible Ponds:" +this.validAmphibiansList.toString());
     }
-
-    
-
-
  
 }
