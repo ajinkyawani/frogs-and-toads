@@ -2,12 +2,15 @@
 package com.mycompany.frogsandtoads;
 
 // imports
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -62,6 +65,8 @@ public class MainScreenController implements Initializable {
     private ArrayList<ImageView> validAmphibiansList; // Arraylist to maintain valid amphibians after each move.
     private ArrayList<ImageView> allPonds;
     private HashMap<ImageView, Boolean> pondsStatus;
+    @FXML
+    private Button replayButton;
     
     
     @Override
@@ -107,6 +112,7 @@ public class MainScreenController implements Initializable {
         this.validAmphibiansList = new ArrayList<ImageView>();
         this.currentEmptyPond = this.pond4;
         this.previousEmptyPond = this.pond4;
+        this.replayButton.setVisible(false);
         
         this.updateValidAmphibians(this.currentEmptyPond);
     }
@@ -180,6 +186,7 @@ public class MainScreenController implements Initializable {
         if(gameWon()){
             lblWellDone.setText("Well Done, You Won!");
             lblWellDone.setVisible(true);
+            replayButton.setVisible(true);
         }
     }
     
@@ -217,11 +224,16 @@ public class MainScreenController implements Initializable {
             }
         }
         
-        for(ImageView item: pondKeys){
+        pondKeys.forEach((item) -> {
             this.validAmphibiansList.add(this.pondsAmphibiansMap.get(item));
-        }
+        });
            
         System.out.println("Eligible Ponds:" +this.validAmphibiansList.toString());
+    }
+
+    @FXML
+    private void restartGame(ActionEvent event) throws IOException {
+        App.setRoot("MainScreen");
     }
  
 }
