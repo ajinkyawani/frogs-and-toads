@@ -115,10 +115,11 @@
             <ImageView fx:id="amphibian4" fitHeight="60.0" fitWidth="70.0" layoutX="493.0" layoutY="86.0" onMouseClicked="#selectAmphibian4" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <Button fx:id="replayButton" layoutX="511.0" layoutY="587.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="38.0" prefWidth="100.0" text="Replay" textFill="#e10c30">
+      <Button fx:id="replayButton" layoutX="511.0" layoutY="587.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="38.0" prefWidth="100.0" text="Restart" textFill="#e10c30">
          <font>
             <Font name="AppleGothic Regular" size="18.0" />
          </font>
       </Button>
+      <Button fx:id="backButton" layoutX="419.0" layoutY="593.0" mnemonicParsing="false" onAction="#returnToMainMenu" text="Button" />
    </children>
 </AnchorPane>

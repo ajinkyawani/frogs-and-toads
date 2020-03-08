@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
+import javafx.util.Duration;
 
 
 // Main Screen Controller
@@ -57,7 +58,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private ImageView amphibian4;
     private ImageView selectedAmphibian;// variable to keep track of selected toad or frog
-    private ImageView selectedPond;// variable to keep track of target pond where to move amphibian to
+   // private ImageView selectedPond;// variable to keep track of target pond where to move amphibian to
     private HashMap<ImageView, ImageView> pondsAmphibiansMap;// list of ponds with their corresponding amphibians
     private HashMap<ImageView, ImageView> amphibiansPondsMap;
     private ImageView currentEmptyPond; // Variable to maintain current empty pod.
@@ -70,6 +71,8 @@ public class MainScreenController implements Initializable {
     
     @FXML
     private Button replayButton;
+    @FXML
+    private Button backButton;
     
     
     @Override
@@ -124,7 +127,6 @@ public class MainScreenController implements Initializable {
         this.validAmphibiansList = new ArrayList<ImageView>();
         this.currentEmptyPond = this.pond4;
         this.previousEmptyPond = this.pond4;
-        this.replayButton.setVisible(false);
         
         this.updateValidAmphibians(this.currentEmptyPond);
     }
@@ -183,11 +185,14 @@ public class MainScreenController implements Initializable {
 
         }
         else if (this.validAmphibiansList.isEmpty() && !gameWon()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("It's a deadlock!");
-            alert.setContentText("You cannot make any move further! Press ok and replay the game");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(e -> alert.hide());
+            alert.setHeaderText("Deadlock");
+            alert.setContentText("You are in a deadlock, please replay to continue");
             alert.show();
-            this.replayButton.setVisible(true);
+            delay.play();
+            this.replayButton.setText("Replay");
         }
         else{
             System.out.println(this.validAmphibiansList.isEmpty());
@@ -233,13 +238,13 @@ public class MainScreenController implements Initializable {
         for (int i = 0; i < this.allPonds.size(); i++) {
             if (currentEmptyPond.equals(this.allPonds.get(i))){
                 indexKey = i;
-                if (i-1 >= 0 && this.isLegal(i-1))
+                if (i-1 >= 0 && this.isNotBackward(i-1))
                     pondKeys.add(this.allPonds.get(i-1));
-                if (i-2 >= 0 && this.isLegal(i-2))
+                if (i-2 >= 0 && this.isNotBackward(i-2))
                     pondKeys.add(this.allPonds.get(i-2));
-                if (i+1 <= this.allPonds.size() - 1 && this.isLegal(i + 1))
+                if (i+1 <= this.allPonds.size() - 1 && this.isNotBackward(i + 1))
                     pondKeys.add(this.allPonds.get(i+1));
-                if (i+2 <= this.allPonds.size() - 1 && this.isLegal(i + 2))
+                if (i+2 <= this.allPonds.size() - 1 && this.isNotBackward(i + 2))
                     pondKeys.add(this.allPonds.get(i+2));
             }
         }
@@ -251,7 +256,7 @@ public class MainScreenController implements Initializable {
         System.out.println("Eligible Ponds:" +this.validAmphibiansList.toString());
     }
 
-    private boolean isLegal(int index) {
+    private boolean isNotBackward(int index) {
         int emptyPondRank = this.pondRanks.get(this.currentEmptyPond);
         boolean nominatedPondStatus = this.pondsStatus.get(this.allPonds.get(index));
         int nominatedPondRank = this.pondRanks.get(this.allPonds.get(index));
@@ -266,6 +271,11 @@ public class MainScreenController implements Initializable {
     @FXML
     private void restartGame(ActionEvent event) throws IOException {
         App.setRoot("MainScreen");
+    }
+
+    @FXML
+    private void returnToMainMenu(ActionEvent event) throws IOException {
+        App.setRoot("ChooseLevel");
     }
  
 }

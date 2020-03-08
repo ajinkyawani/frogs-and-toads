@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.mycompany.frogsandtoads.ChooseLevelController">
+   <children>
+      <Button fx:id="levelMediumButton" layoutX="227.0" layoutY="187.0" mnemonicParsing="false" onAction="#playMediumLevel" prefHeight="27.0" prefWidth="79.0" text="Medium" />
+      <Button fx:id="levelEasyButton" layoutX="227.0" layoutY="137.0" mnemonicParsing="false" onAction="#playEasyLevel" prefHeight="27.0" prefWidth="72.0" text="Easy" />
+      <Label layoutX="203.0" layoutY="89.0" text="Please  choose a level to play" />
+   </children>
+</AnchorPane>
