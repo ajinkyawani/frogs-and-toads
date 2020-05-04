@@ -1,5 +1,9 @@
+com/mycompany/frogsandtoads/MediumLevelController.class
+com/mycompany/frogsandtoads/ChooseLevelController.class
 com/mycompany/frogsandtoads/App.class
 module-info.class
 com/mycompany/frogsandtoads/MainScreenController.class
-com/mycompany/frogsandtoads/SecondaryController.class
 com/mycompany/frogsandtoads/PrimaryController.class
+com/mycompany/frogsandtoads/SecondaryController.class
+com/mycompany/frogsandtoads/InstructionsController.class
+com/mycompany/frogsandtoads/WelcomeController.class
